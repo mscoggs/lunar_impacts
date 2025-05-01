@@ -15,11 +15,9 @@ def write_trajectory_file(phi_0,theta_0, run_name):
     for x in range(6): out.write("# \n")
     for day in DAYS:
         theta = W_MOON*day + theta_0
-        phi = phi_0
-        r = R_MOON
-        x,y,z = conv_sph_to_cart(r,phi,theta)
+        x,y,z = conv_sph_to_cart(R_MOON,phi_0,theta)
         jd = D_0 + day
-        vtotal = W_MOON*r/SEC_PER_DAY *np.cos(phi-0.5*np.pi)#km/s total
+        vtotal = W_MOON*R_MOON/SEC_PER_DAY *np.cos(phi_0-0.5*np.pi)#km/s total
         r_2d = np.sqrt(x**2 + y**2)
         vx,vy,vz = -y*vtotal/r_2d, x*vtotal/r_2d, 0.0
         x,y,z,vx,vy,vz = conv_lunar_to_ecliptic(x,y,z,vx,vy,vz)
@@ -48,7 +46,7 @@ def run_moon_impact_simulation():
     for phi, theta,run_name, counter in zip(phis, thetas, runs, range(N_sub)):
             write_trajectory_file(phi,theta, run_name)
             modify_options_file(run_name)
-            print("Current run: "+run_name+" ("+str(counter) +" of " +str(N) + ")")
+            print("Current run: "+run_name+" ("+str(counter) +" of " +str(N_sub) + ")")
             os.chdir(MEM3_DIR)
             time.sleep(2)
             result = subprocess.run(MEM3_COMMAND, shell=True, capture_output=True)

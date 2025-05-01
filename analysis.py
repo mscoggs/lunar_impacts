@@ -51,25 +51,28 @@ def get_impact_rate(dir_,std=False):
 
     return top_sum+side_sum
 
+def get_all_sim_dirs():
+    return list(glob.iglob(DATA_DIR+"*"))
+
+def pull_phi_theta(fname):
+    tail = fname.split("\\")[-1]
+    phi = float((tail.split("phi_")[-1]).split("_")[0])
+    theta = float(tail.split("_")[-1])
+    return phi,theta
 
 
 def consolidate_sims(save_name):
-    data_folders_temp = list(glob.iglob(DATA_DIR+"*"))
-    data_folders=[]
-    for folder in data_folders_temp:
-        if("trajectory" not in folder):
-            data_folders.append(folder)
+    data_folders = get_all_sim_dirs()
+
 
     phis, thetas, flux=[],[],[]
     for folder in data_folders:
-        run_name = folder.split("\\")[-1]
-        phi = float((run_name.split("phi_")[-1]).split("_")[0])
-        theta = float(run_name.split("_")[-1])
-        dir_ = DATA_DIR+run_name
-        avg_flux = get_impact_rate(dir_,std=True)
+        phi, theta = pull_phi_theta(save_name)
+
+        avg_flux = get_impact_rate(run_name,std=True)
 
         if(avg_flux == -1):
-            print(dir_, "failed")
+            print(run_name, "failed")
             continue
         phis.append(phi)
         thetas.append(theta)

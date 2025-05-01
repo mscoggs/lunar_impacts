@@ -13,13 +13,13 @@ T_MOON_ECLIPTIC = 27.2122
 W_MOON = 2*np.pi/T_MOON_ECLIPTIC
 DAYS = np.linspace(0, T_MOON_ECLIPTIC, NUM_STEPS)
 
-RUN_DIR = 'C:/Users/Matthew/Dropbox/github_repos/STARS_FOLDER/'
+RUN_DIR = 'C:/Users/Matthew/Dropbox/github_repos/lunar_impacts/'
 MEM3_DIR = RUN_DIR+"MEM3_Windows/"
 OPTIONS_IN = MEM3_DIR+"options_template.txt"
 OPTIONS_OUT = MEM3_DIR+"options.txt"
-DATA_FOLDER = "data_1000_m6/"
+DATA_FOLDER = "data_1000_m2/"
 DATA_DIR = MEM3_DIR+DATA_FOLDER
-LOG_MIN_MASS = -6
+LOG_MIN_MASS = -2
 TRAJECTORY_FILE_NAME = "trajectory.txt"
 MEM3_COMMAND = "MEM3Windows.exe"
 FAILED_CHECK_FILE = "HiDensity/cube_avg.txt"
