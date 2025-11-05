@@ -50,3 +50,12 @@ def init_grid():
     x,y,z = fibonacci_sphere(samples=N)
     r,phis,thetas = conv_cart_to_sph(x,y,z)
     return phis,thetas
+
+
+def grun(m):
+    c4,c5,c6,c7,c8,c9,c10 = 2.2e3, 15, 1.3e-9, 1e11, 1e27, 1.3e-16, 1e6
+    y4,y5,y6,y7,y8,y9,y10=0.306,-4.38,2,4,-0.36, 2,-0.85
+    a = np.power((c4*np.power(m,y4) + c5),y5)
+    b = c6*np.power(m+c7*np.power(m,y6) + c8*np.power(m, y7),y8)
+    c = c9*np.power(m + c10*np.power(m, y9),y10)
+    return (a+b+c)*SEC_PER_YEAR
